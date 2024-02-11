@@ -1,95 +1,98 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from "react";
+import { Typography, Container, Button } from "@mui/material";
+import { Box } from "@mui/system";
+import { Navigation } from "../components";
 
-export default function Home() {
+function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        flexGrow: 1,
+        position: "relative",
+      }}
+    >
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: "fixed",
+          width: "100%",
+          left: "50%",
+          top: "50%",
+          height: "100%",
+          objectFit: "cover",
+          transform: "translate(-50%, -50%)",
+          zIndex: "-1",
+        }}
+      >
+        <source src="/assets/9.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      {/* Video Overlay */}
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: "0",
+        }}
+      ></Box>
+      <Navigation />
+
+      <Box
+        sx={{
+          position: "absolute",
+          zIndex: "1",
+          // Use theme breakpoints for responsive styles
+          paddingLeft: {
+            xs: 0, // No padding for extra-small devices (mobile)
+            md: 120, // Apply padding for medium devices (desktop) and up
+          },
+        }}
+      >
+        <Container>
+          <Typography
+            color="white"
+            textAlign="center"
+            fontSize={40}
+            fontWeight="bold"
+            fontFamily="comorant"
+            sx={{
+              whiteSpace: "pre-line",
+            }}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            {"You Bring the Laughter \n We Serve the Love"}
+          </Typography>
+          <Box
+            sx={{
+              display: "flex", // Enable flexbox
+              justifyContent: "center", // Center horizontally
+              width: "100%", // Take full width to ensure centering works
+              mt: 2, // Optional: Adds margin top for spacing, adjust as needed
+            }}
+          >
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "white", borderRadius: 20 }}
+            >
+              <Typography color="black" fontWeight="600" fontFamily="comorant">
+                Reserve
+              </Typography>
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+    </Box>
   );
 }
+
+export default Home;
