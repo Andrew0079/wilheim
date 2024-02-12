@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { Home, Services, Gallery } from "@/web-pages";
+import { Home, Gallery, Service, Events } from "@/web-pages";
 import { Navigation, Footer } from "../components";
 
 function Main() {
@@ -56,8 +56,10 @@ function Main() {
         <Navigation isAtTop={isAtTop} onNavigate={scrollToSection} />
       </Box>
       <Home ref={homeRef} />
-      <Services ref={servicesRef} />
+      <Events ref={servicesRef} />
+      <Service />
       <Gallery ref={galleryRef} />
+
       <Footer />
     </Box>
   );

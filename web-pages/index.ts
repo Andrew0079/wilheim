@@ -1,5 +1,6 @@
 import Home from "./home";
-import Services from "./services";
+import Events from "./events";
 import Gallery from "./gallery";
+import Service from "./service";
 
-export { Home, Services, Gallery };
+export { Home, Events, Gallery, Service };

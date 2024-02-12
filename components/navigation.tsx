@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 
-const pages = ["Home", "Services", "Gallery", "Inquire", "About"];
+const pages = ["Home", "Events", "Our Service", "Gallery", "Inquire", "About"];
 
 function Navigation({
   isAtTop,
@@ -41,7 +41,7 @@ function Navigation({
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h4"
             noWrap
             component="a"
             href="#"
@@ -86,7 +86,7 @@ function Navigation({
                   fontWeight: "bold",
                 }}
               >
-                {page}
+                <Typography fontSize={18}>{page}</Typography>
               </Button>
             ))}
           </Box>

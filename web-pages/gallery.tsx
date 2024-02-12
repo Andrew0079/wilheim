@@ -13,6 +13,9 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const imagesPerPage = 9; // 3 rows * 3 columns
+
   const handleOpen = (index: number) => {
     setCurrentImage(index);
     setOpen(true);
@@ -36,11 +39,18 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image1.jpeg" },
     { image: "/images/wilheim/image2.jpeg" },
     { image: "/images/wilheim/image3.jpeg" },
+    { image: "/images/wilheim/image4.jpeg" },
     { image: "/images/birthday.jpeg" },
     { image: "/images/company-party.jpg" },
     { image: "/images/christmas-party.jpg" },
     { image: "/images/bachelor.jpg" },
-    { image: "/images/meeting.jpg" },
+
+    { image: "/images/wilheim/image7.png" },
+    { image: "/images/wilheim/image8.png" },
+    { image: "/images/wilheim/image9.png" },
+    { image: "/images/wilheim/image10.png" },
+    { image: "/images/wilheim/image11.png" },
+    { image: "/images/wilheim/image12.png" },
   ];
 
   return (
@@ -49,7 +59,7 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: "center",
         height: "100vh",
       }}

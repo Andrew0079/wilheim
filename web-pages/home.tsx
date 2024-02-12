@@ -50,9 +50,9 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         <Container>
           <Typography
             color="white"
+            variant="h2"
             textAlign="center"
-            fontSize={40}
-            fontWeight="bold"
+            fontWeight={300}
             sx={{
               whiteSpace: "pre-line",
             }}
@@ -69,7 +69,10 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           >
             <Button
               variant="contained"
-              style={{ backgroundColor: "white", borderRadius: 5 }}
+              style={{
+                backgroundColor: "white",
+                borderRadius: 5,
+              }}
             >
               <Typography color="black" fontWeight="600">
                 INQUIRE NOW
