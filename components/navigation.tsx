@@ -10,20 +10,26 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Link from "next/link";
 
-function Navigation({ isAtTop }: { isAtTop: boolean }) {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+const pages = ["Home", "Services", "Gallery", "Inquire", "About"];
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+function Navigation({
+  isAtTop,
+  onNavigate,
+}: {
+  isAtTop: boolean;
+  onNavigate?: (page: any) => void;
+}) {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+  const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  const pages = ["Home", "Services", "Gallery", "Reservation", "About"];
 
   return (
     <AppBar
@@ -42,14 +48,19 @@ function Navigation({ isAtTop }: { isAtTop: boolean }) {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "comorant",
               fontWeight: 800,
               letterSpacing: ".4rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
+            {/* <Link
+              href="/"
+              passHref
+              // style={{ textDecoration: "none", color: "white" }}
+            > */}
             WILHEIM
+            {/* </Link> */}
           </Typography>
 
           <Box
@@ -62,13 +73,17 @@ function Navigation({ isAtTop }: { isAtTop: boolean }) {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  if (onNavigate) {
+                    onNavigate(page);
+                  }
+                }}
                 sx={{
                   my: 2,
                   color: "white",
                   display: "block",
                   fontWeight: "bold",
-                  fontFamily: "comorant",
                 }}
               >
                 {page}

@@ -1,8 +1,11 @@
-import React from "react";
+"use client";
+import React, { forwardRef } from "react";
 import { Typography, Container, Button } from "@mui/material";
 import { Box } from "@mui/system";
 
-function Home() {
+interface HomeProps {}
+
+const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
   return (
     <Box
       sx={{
@@ -50,7 +53,6 @@ function Home() {
             textAlign="center"
             fontSize={40}
             fontWeight="bold"
-            fontFamily="comorant"
             sx={{
               whiteSpace: "pre-line",
             }}
@@ -69,7 +71,7 @@ function Home() {
               variant="contained"
               style={{ backgroundColor: "white", borderRadius: 5 }}
             >
-              <Typography color="black" fontWeight="600" fontFamily="comorant">
+              <Typography color="black" fontWeight="600">
                 INQUIRE NOW
               </Typography>
             </Button>
@@ -78,6 +80,8 @@ function Home() {
       </Box>
     </Box>
   );
-}
+});
+
+Home.displayName = "Home";
 
 export default Home;

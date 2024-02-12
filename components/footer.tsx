@@ -12,7 +12,7 @@ function Footer() {
       }}
     >
       <Container maxWidth="lg">
-        <Typography variant="body1" textAlign="center" fontFamily="comorant">
+        <Typography variant="body1" textAlign="center">
           © Your Bar Name - {new Date().getFullYear()}
         </Typography>
         <Typography variant="body2" textAlign="center">

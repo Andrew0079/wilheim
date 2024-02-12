@@ -1,26 +1,50 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { Home, Services } from "@/pages";
+import { Home, Services, Gallery } from "@/web-pages";
 import { Navigation, Footer } from "../components";
 
 function Main() {
-  const homeRef = useRef(null);
-  const servicesRef = useRef(null);
+  const homeRef = useRef<any>(null);
+  const servicesRef = useRef<any>(null);
+  const galleryRef = useRef<any>(null); // Add ref for Gallery
 
-  const [isAtTop, setIsAtTop] = useState(true); // State to track if user is at the top of the page
+  const [isAtTop, setIsAtTop] = useState(true);
 
   const handleScroll = () => {
-    // Check if the scroll position is at the top of the page
     const atTop = window.scrollY === 0;
     setIsAtTop(atTop);
   };
 
+  const scrollToSection = (section: any) => {
+    let offset = 90; // Offset from the top, adjust as needed
+    let elementPosition = 0;
+    switch (section) {
+      case "Home":
+        homeRef.current?.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "Services":
+        if (servicesRef.current) {
+          elementPosition =
+            servicesRef.current.getBoundingClientRect().top + window.scrollY;
+        }
+        break;
+      case "Gallery":
+        if (galleryRef.current) {
+          elementPosition =
+            galleryRef.current.getBoundingClientRect().top + window.scrollY;
+        }
+        break;
+    }
+    window.scrollTo({
+      top: elementPosition - offset,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
-    // Add scroll event listener when the component mounts
     window.addEventListener("scroll", handleScroll);
 
-    // Remove scroll event listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -29,10 +53,11 @@ function Main() {
   return (
     <Box>
       <Box sx={{ position: "sticky", top: 0, zIndex: 1000 }}>
-        <Navigation isAtTop={isAtTop} />
+        <Navigation isAtTop={isAtTop} onNavigate={scrollToSection} />
       </Box>
-      <Home />
-      <Services />
+      <Home ref={homeRef} />
+      <Services ref={servicesRef} />
+      <Gallery ref={galleryRef} />
       <Footer />
     </Box>
   );
