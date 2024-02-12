@@ -10,9 +10,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Image from "next/image";
 
-function Navigation() {
+function Navigation({ isAtTop }: { isAtTop: boolean }) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -27,7 +26,12 @@ function Navigation() {
   const pages = ["Home", "Services", "Gallery", "Reservation", "About"];
 
   return (
-    <AppBar elevation={12} sx={{ bgcolor: "transparent" }}>
+    <AppBar
+      elevation={13}
+      sx={{
+        bgcolor: isAtTop ? "transparent" : "black",
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
