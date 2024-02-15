@@ -1,13 +1,79 @@
 "use client";
 
 import React, { useState, forwardRef } from "react";
-import { Box, Container, Dialog, IconButton } from "@mui/material";
+import {
+  Box,
+  Container,
+  Dialog,
+  IconButton,
+  Grid,
+  CardMedia,
+  Card,
+  Divider,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Image from "next/image";
 import { SectionHeader, GridDisplay } from "@/components";
 
 interface GalleryProps {}
+
+function GalleryRow({
+  list,
+  rowName,
+}: {
+  rowName: string;
+  list: { image: string }[];
+}) {
+  return (
+    <Box
+      marginBottom={5}
+      sx={{
+        display: "flex",
+        overflowX: "auto",
+        width: "100%",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+        scrollbarWidth: "none", // Firefox
+      }}
+    >
+      {list.map(({ image }, index: number) => (
+        <Box
+          key={`${rowName}-${index}`}
+          sx={{
+            minWidth: 300,
+            height: 220,
+            marginRight: "8px",
+            display: "inline-block",
+          }}
+        >
+          <Card
+            sx={{
+              borderRadius: 2,
+              height: "100%",
+              cursor: "pointer",
+              transition: "transform 0.3s ease-in-out",
+              ":hover": {
+                transform: "scale(1.05)",
+                boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)",
+                borderRadius: 2,
+              },
+            }}
+            // onClick={() => handleOpen(index)}
+          >
+            <CardMedia
+              component="img"
+              image={image}
+              alt="image"
+              sx={{ height: "100%", objectFit: "cover" }}
+            />
+          </Card>
+        </Box>
+      ))}
+    </Box>
+  );
+}
 
 const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
   const [open, setOpen] = useState(false);
@@ -44,7 +110,6 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/company-party.jpg" },
     { image: "/images/christmas-party.jpg" },
     { image: "/images/bachelor.jpg" },
-
     { image: "/images/wilheim/image7.png" },
     { image: "/images/wilheim/image8.png" },
     { image: "/images/wilheim/image9.png" },
@@ -53,6 +118,11 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image12.png" },
   ];
 
+  const halfLength = Math.ceil(imageUrls.length / 2);
+
+  // Split the array into two halves
+  const firstHalf = imageUrls.slice(0, halfLength);
+  const secondHalf = imageUrls.slice(halfLength);
   return (
     <Box
       ref={ref}
@@ -66,7 +136,8 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     >
       <SectionHeader title="Gallery" />
       <Container>
-        <GridDisplay list={imageUrls} onClick={handleOpen} />
+        <GalleryRow list={firstHalf} rowName="first" />
+        <GalleryRow list={secondHalf} rowName="second" />
       </Container>
       <Dialog
         open={open}
