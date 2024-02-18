@@ -24,6 +24,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         autoPlay
         loop
         muted
+        playsInline
         style={{
           position: "absolute",
           width: "100%",
