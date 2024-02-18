@@ -48,7 +48,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
                 }}
                 onClick={() => window.open(mapsUrl, "_blank")}
               >
-                Franz-Josefs-Kai 39, 1010 Wien, Austria
+                Franz-Josefs-Kai 39, 1010 Wien
               </Typography>
               <Typography fontWeight="bold" variant="h6">
                 |

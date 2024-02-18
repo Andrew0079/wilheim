@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Grid, Box } from "@mui/material";
 import { Home, Gallery, Service, Events, Contact, Inquire } from "@/web-pages";
-import { Navigation, Footer } from "../components";
+import { Navigation, Footer, Loading } from "../components";
 
 function Main() {
   const homeRef = useRef<any>(null);
@@ -71,36 +71,48 @@ function Main() {
     };
   }, []);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Box sx={{ position: "sticky", top: 0, zIndex: 1000 }}>
-        <Navigation isAtTop={isAtTop} onNavigate={scrollToSection} />
-      </Box>
-      <Box component="main">
-        <Grid container spacing={4}>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Home ref={homeRef} onNavigate={scrollToSection} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Events ref={eventsRef} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Service ref={ourServicesRef} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Gallery ref={galleryRef} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Inquire ref={inquireRef} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Contact ref={contactRef} />
-          </Grid>
-          <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-            <Footer />
-          </Grid>
-        </Grid>
-      </Box>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <Box sx={{ position: "sticky", top: 0, zIndex: 1000 }}>
+            <Navigation isAtTop={isAtTop} onNavigate={scrollToSection} />
+          </Box>
+          <Box component="main">
+            <Grid container spacing={4}>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Home ref={homeRef} onNavigate={scrollToSection} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Events ref={eventsRef} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Service ref={ourServicesRef} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Gallery ref={galleryRef} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Inquire ref={inquireRef} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Contact ref={contactRef} />
+              </Grid>
+              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                <Footer />
+              </Grid>
+            </Grid>
+          </Box>
+        </>
+      )}
     </Box>
   );
 }

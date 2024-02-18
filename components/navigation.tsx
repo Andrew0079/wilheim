@@ -68,13 +68,7 @@ function Navigation({
               },
             }}
           >
-            {/* <Link
-              href="/"
-              passHref
-              // style={{ textDecoration: "none", color: "white" }}
-            > */}
             WILHEIM
-            {/* </Link> */}
           </Typography>
 
           <Box
@@ -100,7 +94,19 @@ function Navigation({
                   fontWeight: "bold",
                 }}
               >
-                <Typography fontSize={18}>{page}</Typography>
+                <Typography
+                  fontSize={18}
+                  sx={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    "&:hover": {
+                      textDecoration: "underline",
+                      textUnderlineOffset: "0.25em",
+                    },
+                  }}
+                >
+                  {page}
+                </Typography>
               </Button>
             ))}
           </Box>
@@ -143,7 +149,17 @@ function Navigation({
           >
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">{page}</Typography>
+                <Typography
+                  textAlign="center"
+                  onClick={() => {
+                    handleCloseNavMenu();
+                    if (onNavigate) {
+                      onNavigate(page);
+                    }
+                  }}
+                >
+                  {page}
+                </Typography>
               </MenuItem>
             ))}
           </Menu>
