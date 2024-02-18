@@ -12,7 +12,14 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 
-const pages = ["Home", "Events", "Our Service", "Gallery", "Inquire", "About"];
+const pages = [
+  "Home",
+  "Events",
+  "Our Service",
+  "Gallery",
+  "Inquire",
+  "Contact",
+];
 
 function Navigation({
   isAtTop,
@@ -47,11 +54,18 @@ function Navigation({
             href="#"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { md: "flex" },
               fontWeight: 800,
               letterSpacing: ".4rem",
               color: "inherit",
               textDecoration: "none",
+              typography: {
+                xs: "h6",
+                sm: "h6",
+                md: "h4",
+                lg: "h4",
+                xl: "h4",
+              },
             }}
           >
             {/* <Link
@@ -91,7 +105,13 @@ function Navigation({
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              flex: 1,
+              display: { xs: "flex", md: "none" },
+              justifyContent: "flex-end",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="navigation menu"
@@ -103,7 +123,6 @@ function Navigation({
               <MenuIcon />
             </IconButton>
           </Box>
-
           <Menu
             id="menu-appbar"
             anchorEl={anchorElNav}

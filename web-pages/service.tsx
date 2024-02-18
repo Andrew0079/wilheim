@@ -1,8 +1,12 @@
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+"use client";
+
+import React, { forwardRef } from "react";
+import { Box, Grid, Typography, Container } from "@mui/material";
 import { SectionHeader } from "@/components";
 
-function Service() {
+interface ServiceProps {}
+
+const Service = forwardRef<HTMLDivElement, ServiceProps>((props, ref) => {
   const info = [
     {
       title: "No rental costs",
@@ -44,16 +48,16 @@ function Service() {
 
   return (
     <Box
+      ref={ref}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "70vh",
       }}
     >
-      <SectionHeader title="Our Service" />
-      <Box width="80%">
+      <Container>
+        <SectionHeader title="Our Service" />
         <Grid container spacing={6}>
           {info.map((item, index) => (
             <Grid item xs={12} sm={4} key={index}>
@@ -64,9 +68,11 @@ function Service() {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </Box>
   );
-}
+});
+
+Service.displayName = "Service";
 
 export default Service;

@@ -1,86 +1,67 @@
 "use client";
-
 import React, { useState, forwardRef } from "react";
 import {
   Box,
-  Container,
   Dialog,
   IconButton,
-  Grid,
   CardMedia,
   Card,
-  Divider,
+  Container,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Image from "next/image";
-import { SectionHeader, GridDisplay } from "@/components";
+import { SectionHeader, StickerContainer } from "@/components";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
 interface GalleryProps {}
 
-function GalleryRow({
+function StandardImageList({
   list,
-  rowName,
+  onHandleClick,
 }: {
-  rowName: string;
   list: { image: string }[];
+  onHandleClick: (index: number) => void;
 }) {
   return (
-    <Box
-      marginBottom={5}
-      sx={{
-        display: "flex",
-        overflowX: "auto",
-        width: "100%",
-        "&::-webkit-scrollbar": {
-          display: "none",
-        },
-        scrollbarWidth: "none", // Firefox
-      }}
+    <ImageList
+      gap={16}
+      variant="quilted"
+      cols={4}
+      rowHeight={150}
+      style={{ borderRadius: 15, padding: 16 }}
     >
       {list.map(({ image }, index: number) => (
-        <Box
-          key={`${rowName}-${index}`}
-          sx={{
-            minWidth: 300,
-            height: 220,
-            marginRight: "8px",
-            display: "inline-block",
-          }}
-        >
+        <ImageListItem key={`row-${index}`}>
           <Card
             sx={{
-              borderRadius: 2,
               height: "100%",
               cursor: "pointer",
               transition: "transform 0.3s ease-in-out",
               ":hover": {
                 transform: "scale(1.05)",
                 boxShadow: "0 4px 20px 0 rgba(0,0,0,0.12)",
-                borderRadius: 2,
               },
             }}
-            // onClick={() => handleOpen(index)}
           >
             <CardMedia
               component="img"
               image={image}
               alt="image"
-              sx={{ height: "100%", objectFit: "cover" }}
+              height="100%"
+              onClick={() => onHandleClick(index)}
             />
           </Card>
-        </Box>
+        </ImageListItem>
       ))}
-    </Box>
+    </ImageList>
   );
 }
 
 const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
-
-  const [currentPage, setCurrentPage] = useState(0);
-  const imagesPerPage = 9; // 3 rows * 3 columns
 
   const handleOpen = (index: number) => {
     setCurrentImage(index);
@@ -116,13 +97,10 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image10.png" },
     { image: "/images/wilheim/image11.png" },
     { image: "/images/wilheim/image12.png" },
+    { image: "/images/wilheim/image13.jpeg" },
+    { image: "/images/wilheim/image14.jpeg" },
   ];
 
-  const halfLength = Math.ceil(imageUrls.length / 2);
-
-  // Split the array into two halves
-  const firstHalf = imageUrls.slice(0, halfLength);
-  const secondHalf = imageUrls.slice(halfLength);
   return (
     <Box
       ref={ref}
@@ -131,14 +109,14 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
       }}
     >
       <SectionHeader title="Gallery" />
-      <Container>
-        <GalleryRow list={firstHalf} rowName="first" />
-        <GalleryRow list={secondHalf} rowName="second" />
-      </Container>
+      <StickerContainer>
+        <Container>
+          <StandardImageList list={imageUrls} onHandleClick={handleOpen} />
+        </Container>
+      </StickerContainer>
       <Dialog
         open={open}
         onClose={handleClose}

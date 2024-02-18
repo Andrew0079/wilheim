@@ -3,7 +3,9 @@ import React, { forwardRef } from "react";
 import { Typography, Container, Button } from "@mui/material";
 import { Box } from "@mui/system";
 
-interface HomeProps {}
+interface HomeProps {
+  onNavigate: (page: any) => void;
+}
 
 const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
   return (
@@ -40,10 +42,12 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         sx={{
           position: "relative",
           zIndex: 1,
-
           paddingLeft: {
             xs: 0,
-            md: 120,
+            sm: 0,
+            md: 0,
+            lg: 120,
+            xl: 120,
           },
         }}
       >
@@ -55,6 +59,13 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
             fontWeight={300}
             sx={{
               whiteSpace: "pre-line",
+              typography: {
+                xs: "h4",
+                sm: "h4",
+                md: "h4",
+                lg: "h3",
+                xl: "h2",
+              },
             }}
           >
             {"You Bring the Laughter \n We Serve the Love"}
@@ -73,6 +84,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
                 backgroundColor: "white",
                 borderRadius: 5,
               }}
+              onClick={() => props.onNavigate("Inquire")}
             >
               <Typography color="black" fontWeight="600">
                 INQUIRE NOW

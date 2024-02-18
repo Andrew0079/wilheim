@@ -1,6 +1,6 @@
 import Navigation from "./navigation";
 import Footer from "./footer";
 import SectionHeader from "./section-header";
-import GridDisplay from "./gird-display";
+import StickerContainer from "./sticker-container";
 
-export { Navigation, Footer, SectionHeader, GridDisplay };
+export { Navigation, Footer, SectionHeader, StickerContainer };
