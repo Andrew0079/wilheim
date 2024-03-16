@@ -7,7 +7,6 @@ import theme from "@/theme";
 const newTheme = createTheme({
   ...theme,
   typography: {
-    // Set the default font family for all typography
     fontFamily: "'Original Surfer', sans-serif",
   },
 });
