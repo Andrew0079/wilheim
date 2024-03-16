@@ -19,7 +19,7 @@ function Loading() {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
       }}
     >
-      <StickerContainer>
+      <StickerContainer stickerType="coffee.jpeg">
         <Box
           sx={{
             display: "flex",
