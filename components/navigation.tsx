@@ -10,7 +10,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Link from "next/link";
 
 const pages = [
   "Home",
@@ -19,6 +18,7 @@ const pages = [
   "Gallery",
   "Inquire",
   "Contact",
+  "+43 660 680 3630",
 ];
 
 function Navigation({
@@ -42,7 +42,8 @@ function Navigation({
     <AppBar
       elevation={13}
       sx={{
-        bgcolor: isAtTop ? "transparent" : "black",
+        bgcolor: isAtTop ? "rgba(5, 25, 35, 0.5)" : "#051923",
+        transition: "background-color 0.3s ease",
       }}
     >
       <Container maxWidth="xl">
@@ -55,7 +56,6 @@ function Navigation({
             sx={{
               mr: 2,
               display: { md: "flex" },
-              fontWeight: 800,
               letterSpacing: ".4rem",
               color: "inherit",
               textDecoration: "none",
@@ -95,8 +95,9 @@ function Navigation({
                 }}
               >
                 <Typography
-                  fontSize={18}
+                  fontSize={15}
                   sx={{
+                    color: "white",
                     cursor: "pointer",
                     textDecoration: "none",
                     "&:hover": {

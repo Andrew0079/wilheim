@@ -109,7 +109,7 @@ const Events = forwardRef<HTMLDivElement, EventsProps>((props, ref) => {
       }}
     >
       <SectionHeader title="Events" />
-      <StickerContainer>
+      <StickerContainer stickerType="coffee.jpeg">
         <Container>
           <GridDisplay list={services} />
         </Container>

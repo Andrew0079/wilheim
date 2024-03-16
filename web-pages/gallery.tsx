@@ -112,7 +112,7 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
       }}
     >
       <SectionHeader title="Gallery" />
-      <StickerContainer>
+      <StickerContainer stickerType="sticker0.jpg">
         <Container>
           <StandardImageList list={imageUrls} onHandleClick={handleOpen} />
         </Container>

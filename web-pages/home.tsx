@@ -35,9 +35,20 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           zIndex: -1,
         }}
       >
-        <source src="/assets/9.mp4" type="video/mp4" />
+        <source src="/assets/coffee.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+
+      {/* Overlay Box */}
+      <Box
+        sx={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
+          zIndex: 0,
+        }}
+      ></Box>
 
       <Box
         sx={{
@@ -87,7 +98,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
               }}
               onClick={() => props.onNavigate("Inquire")}
             >
-              <Typography color="black" fontWeight="600">
+              <Typography color="#051923" fontWeight="600">
                 INQUIRE NOW
               </Typography>
             </Button>

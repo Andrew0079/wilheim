@@ -20,7 +20,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
       }}
     >
       <SectionHeader title="Contact" />
-      <StickerContainer>
+      <StickerContainer stickerType="breakfast.jpeg">
         <Container>
           <Box
             style={{ display: "flex", flexDirection: "column" }}
@@ -66,10 +66,10 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
                 }}
               >
                 <Link
-                  href="tel:+436606803630"
+                  href="tel:+43 660 680 3630"
                   style={{ textDecoration: "none", color: "black" }}
                 >
-                  +436606803630
+                  +43 660 680 3630
                 </Link>
               </Typography>
               <Typography fontWeight="bold" variant="h6">
@@ -87,10 +87,10 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
                 }}
               >
                 <Link
-                  href="mailto:something@gmail.com"
+                  href="mailto: info@wilheim.at"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  something@gmail.com
+                  info@wilheim.at
                 </Link>
               </Typography>
             </Box>

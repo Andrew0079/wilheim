@@ -17,27 +17,37 @@ function Footer() {
   return (
     <Box
       sx={{
-        py: 6, // Adjusted padding to better fit multiple columns
+        pt: 14,
+        pb: 6,
         mt: 4,
-        backgroundColor: "black",
+        backgroundColor: "#051923",
         color: "white",
       }}
     >
       <Container maxWidth="lg">
         <Grid container justifyContent="space-between">
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="body2" textAlign="center" gutterBottom>
-              WILHEIM - the No. 1 Eventocation in Vienna since 2012.
+            <Typography
+              variant="body2"
+              textAlign="center"
+              gutterBottom
+              fontSize={24}
+            >
+              WILHEIM
             </Typography>
             <Box textAlign="center">
               <FacebookIcon sx={{ color: "white", mr: 1 }} />
               <InstagramIcon sx={{ color: "white", mx: 1 }} />
               <TwitterIcon sx={{ color: "white", ml: 1 }} />
             </Box>
-            {/* Add content here */}
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="body2" textAlign="center" gutterBottom>
+            <Typography
+              variant="body2"
+              textAlign="center"
+              gutterBottom
+              fontSize={24}
+            >
               EVENTS
             </Typography>
             {events.map((event: string, index: number) => (
@@ -50,15 +60,15 @@ function Footer() {
                 {event}
               </Typography>
             ))}
-
-            {/* Add content here */}
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="body2" textAlign="center" gutterBottom>
-              INFORMATION
-            </Typography>
-            <Typography variant="body2" textAlign="center" gutterBottom>
-              Contact
+            <Typography
+              variant="body2"
+              textAlign="center"
+              gutterBottom
+              fontSize={24}
+            >
+              CONTACT
             </Typography>
             <Typography variant="body2" textAlign="center" gutterBottom>
               Email: somethign@gmail.com
@@ -69,7 +79,12 @@ function Footer() {
             {/* Add content here */}
           </Grid>
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="body2" textAlign="center" gutterBottom>
+            <Typography
+              variant="body2"
+              textAlign="center"
+              gutterBottom
+              fontSize={24}
+            >
               LOCATION
             </Typography>
             <Typography variant="body2" textAlign="center" gutterBottom>
@@ -78,8 +93,13 @@ function Footer() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={2}>
-            <Typography variant="body2" textAlign="center" gutterBottom>
-              Reviews
+            <Typography
+              variant="body2"
+              textAlign="center"
+              gutterBottom
+              fontSize={24}
+            >
+              REVIEWS
             </Typography>
             <Box textAlign="center" sx={{ mt: 2 }}>
               <StarIcon sx={{ color: "yellow", mr: 0.5 }} />
@@ -91,14 +111,18 @@ function Footer() {
             {/* Add content here */}
           </Grid>
         </Grid>
-        <Divider sx={{ bgcolor: "grey.500", marginTop: 2, marginBottom: 2 }} />
-        <Typography variant="body1" textAlign="center" sx={{ mt: 2 }}>
-          Web design by AS © Bubba Production - {new Date().getFullYear()}
-        </Typography>
-        <Typography variant="body2" textAlign="center">
-          All rights reserved.
-        </Typography>
       </Container>
+      <Divider
+        sx={{
+          bgcolor: "grey.500",
+          marginTop: 10,
+          marginBottom: 2,
+        }}
+      />
+      <Typography variant="body1" textAlign="center" sx={{ mt: 2 }}>
+        Copyrights AS © BB Production - {new Date().getFullYear()} All rights
+        reserved.
+      </Typography>
     </Box>
   );
 }
