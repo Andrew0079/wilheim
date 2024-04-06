@@ -22,11 +22,12 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
     >
       <SectionHeader title="Contact" />
       <Box
-        style={{
+        sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "center",
           alignItems: "center",
+          gap: 1,
         }}
         gap={1}
       >

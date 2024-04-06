@@ -25,6 +25,7 @@ function ItemContainer({
       component="a"
       href={onClick ? undefined : href}
       sx={{
+        cursor: "pointer",
         display: "inline-flex",
         color: "white",
         textDecoration: "none",
