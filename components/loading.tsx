@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import Image from "next/image";
-import StickerContainer from "./sticker-container";
+import Lottie from "lottie-react";
+import LoadingLottie from "../public/lottie/loading.json";
 
 function Loading() {
   return (
@@ -19,24 +19,20 @@ function Loading() {
         backgroundColor: "rgba(255, 255, 255, 0.7)",
       }}
     >
-      <StickerContainer stickerType="coffee.jpeg">
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <Image
-            src="/images/wilheim/image0.png"
-            alt="Loading"
-            height={150}
-            width={150}
-            style={{ borderRadius: 20 }}
-          />
-        </Box>
-      </StickerContainer>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Lottie
+          animationData={LoadingLottie}
+          loop={true}
+          style={{ height: 500, width: 500 }}
+        />
+      </Box>
     </Box>
   );
 }

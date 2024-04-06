@@ -4,7 +4,12 @@ import { Grid, Box } from "@mui/material";
 import { Home, Gallery, Service, Events, Contact, Inquire } from "@/web-pages";
 import { Navigation, Footer, Loading } from "../components";
 
+const LANGUAGE = {
+  ENG: "ENG",
+  GER: "GER",
+};
 function Main() {
+  const [language, setLanguage] = useState(LANGUAGE.GER);
   const homeRef = useRef<any>(null);
   const eventsRef = useRef<any>(null);
   const ourServicesRef = useRef<any>(null);
@@ -20,7 +25,7 @@ function Main() {
   };
 
   const scrollToSection = (section: any) => {
-    let offset = 90; // Offset from the top, adjust as needed
+    let offset = 90;
     let elementPosition = 0;
     switch (section) {
       case "Home":
@@ -84,7 +89,12 @@ function Main() {
       ) : (
         <>
           <Box sx={{ position: "sticky", top: 0, zIndex: 1000 }}>
-            <Navigation isAtTop={isAtTop} onNavigate={scrollToSection} />
+            <Navigation
+              isAtTop={isAtTop}
+              language={language}
+              onNavigate={scrollToSection}
+              onSetLanguage={setLanguage}
+            />
           </Box>
           <Box component="main">
             <Grid container spacing={4}>
@@ -105,9 +115,9 @@ function Main() {
               </Grid>
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
                 <Contact ref={contactRef} />
-              </Grid>
-              <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-                <Footer />
+                <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
+                  <Footer eventRef={eventsRef} />
+                </Grid>
               </Grid>
             </Grid>
           </Box>

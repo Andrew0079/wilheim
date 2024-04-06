@@ -1,0 +1,24 @@
+{
+    "title": "You Bring the Laughter We Serve the Love",
+    "navigation": {
+        "home": "Home",
+        "events": "Events",
+        "ourService": "Our Service",
+        "gallery": "Gallery",
+        "inquire": "Inquire",
+        "contact": "Contact"
+    },
+    "buttonText": "Inquire navigation",
+    "events": {
+       "birthday": {"title": "Birthday",  "text":"The event location in Vienna for birthday parties" },
+       "companyParty": { "title": "Company Party", "text":"The event location in Vienna for company celebrations" },
+       "christmasParty": { "title": "Christmas Party", "text":"The event location in Vienna for Christmas parties" },
+       "bachelorParty": { "title": "Bachelor Party", "text":"The event location in Vienna for bachelor parties" },
+       "meeting": {"title": "Meeting", "text":"The event location in Vienna for meetings"},
+       "livePerformance": {"title": "Live Performance", "text":"The event location in Vienna for concerts"}
+    },
+    "service": {
+
+    }
+}
+   

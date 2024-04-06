@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
+import { MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
+import Image from "next/image";
 
 const pages = [
   "Home",
@@ -18,15 +17,47 @@ const pages = [
   "Gallery",
   "Inquire",
   "Contact",
-  "+43 660 680 3630",
 ];
+
+function NavButton({
+  label,
+  onClick,
+  isLanguageSelected,
+}: {
+  label: string;
+  onClick: () => void;
+  isLanguageSelected?: boolean;
+}) {
+  return (
+    <Button
+      onClick={onClick}
+      sx={{
+        my: 2,
+        display: "block",
+        fontWeight: "bold",
+        color: isLanguageSelected ? "black" : "white",
+        backgroundColor: isLanguageSelected ? "white" : undefined,
+        ":hover": {
+          color: "black",
+          backgroundColor: "white",
+        },
+      }}
+    >
+      <Typography fontSize={16}>{label}</Typography>
+    </Button>
+  );
+}
 
 function Navigation({
   isAtTop,
+  language,
   onNavigate,
+  onSetLanguage,
 }: {
   isAtTop: boolean;
+  language: string;
   onNavigate?: (page: any) => void;
+  onSetLanguage: (language: string) => void;
 }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -46,82 +77,106 @@ function Navigation({
         transition: "background-color 0.3s ease",
       }}
     >
-      <Container maxWidth="xl">
+      <Box style={{ marginLeft: 15, marginRight: 15 }}>
         <Toolbar disableGutters>
-          <Typography
-            variant="h4"
-            noWrap
-            component="a"
-            href="#"
-            sx={{
-              mr: 2,
-              display: { md: "flex" },
-              letterSpacing: ".4rem",
-              color: "inherit",
-              textDecoration: "none",
-              typography: {
-                xs: "h6",
-                sm: "h6",
-                md: "h4",
-                lg: "h4",
-                xl: "h4",
-              },
-            }}
-          >
-            WILHEIM
-          </Typography>
-
+          <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Image
+                src="/images/wilheim/image0.png"
+                alt="Loading"
+                height={40}
+                width={40}
+                style={{ borderRadius: 10 }}
+              />
+              <Typography
+                noWrap
+                fontSize={26}
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: "flex", md: "flex" },
+                  justifyContent: { xs: "flex-start", md: "flex-start" },
+                }}
+              >
+                WILHEIM
+              </Typography>
+            </Box>
+          </Box>
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "flex-end",
+              textAlign: "center",
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => {
-                  handleCloseNavMenu();
-                  if (onNavigate) {
-                    onNavigate(page);
-                  }
-                }}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  fontWeight: "bold",
-                }}
-              >
-                <Typography
-                  fontSize={15}
-                  sx={{
-                    color: "white",
-                    cursor: "pointer",
-                    textDecoration: "none",
-                    "&:hover": {
-                      textDecoration: "underline",
-                      textUnderlineOffset: "0.25em",
-                    },
-                  }}
-                >
-                  {page}
-                </Typography>
-              </Button>
-            ))}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "none", lg: "flex" },
+                justifyContent: "center",
+              }}
+            >
+              {pages.map((page) => (
+                <Box style={{ marginRight: 5 }} key={page}>
+                  <NavButton
+                    label={page}
+                    onClick={() => {
+                      handleCloseNavMenu();
+                      if (onNavigate) onNavigate(page);
+                    }}
+                  />
+                </Box>
+              ))}
+            </Box>
           </Box>
-
           <Box
             sx={{
-              flex: 1,
-              display: { xs: "flex", md: "none" },
-              justifyContent: "flex-end",
+              flexGrow: 1,
+              textAlign: "center",
+              display: { xs: "none", md: "none", lg: "flex" },
             }}
+          >
+            <Box
+              gap={1}
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "flex-end",
+              }}
+            >
+              <NavButton
+                label="+43 660 680 3630"
+                onClick={() => (window.location.href = "tel:+436606803630")}
+              />
+              <NavButton
+                label="EN"
+                onClick={() => {
+                  onSetLanguage("ENG");
+                }}
+                isLanguageSelected={language === "ENG"}
+              />
+              <NavButton
+                label="GE"
+                onClick={() => {
+                  onSetLanguage("GER");
+                }}
+                isLanguageSelected={language === "GER"}
+              />
+            </Box>
+          </Box>
+
+          {/* Mobile menu */}
+          <Box
+            sx={{ display: { xs: "flex", md: "flex", lg: "none" }, ml: "auto" }}
           >
             <IconButton
               size="large"
-              aria-label="navigation menu"
+              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -133,39 +188,27 @@ function Navigation({
           <Menu
             id="menu-appbar"
             anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
             keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
+            transformOrigin={{ vertical: "top", horizontal: "left" }}
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: "block", md: "none" },
-            }}
+            sx={{ display: { xs: "block", md: "block" } }}
           >
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography
-                  textAlign="center"
-                  onClick={() => {
-                    handleCloseNavMenu();
-                    if (onNavigate) {
-                      onNavigate(page);
-                    }
-                  }}
-                >
-                  {page}
-                </Typography>
+              <MenuItem
+                key={page}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  if (onNavigate) onNavigate(page);
+                }}
+              >
+                <Typography textAlign="center">{page}</Typography>
               </MenuItem>
             ))}
           </Menu>
         </Toolbar>
-      </Container>
+      </Box>
     </AppBar>
   );
 }

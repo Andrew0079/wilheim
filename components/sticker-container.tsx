@@ -3,10 +3,10 @@ import { Box } from "@mui/material";
 
 function StickerContainer({
   children,
-  stickerType,
-}: {
+}: // stickerType,
+{
   children: React.ReactNode;
-  stickerType: string;
+  // stickerType: string;
 }) {
   return (
     <Box
@@ -14,6 +14,7 @@ function StickerContainer({
         width: "100%",
         height: "100%",
         position: "relative",
+        backgroundColor: "#FFF7FC",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -21,13 +22,13 @@ function StickerContainer({
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundImage: `url("/stickers/${stickerType}")`,
-          backgroundRepeat: "repeat, repeat",
-          backgroundSize: "150px 150px",
-          opacity: 0.2, // Adjust for desired fade
+          // backgroundImage: `url("/stickers/${stickerType}")`,
+          // backgroundRepeat: "repeat, repeat",
+          // backgroundSize: "150px 150px",
+          // opacity: 0.2, // Adjust for desired fade
           zIndex: -1,
         },
-        zIndex: 1, // Ensure content is above the pseudo-element
+        zIndex: 1,
       }}
     >
       {children}
