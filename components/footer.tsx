@@ -72,10 +72,16 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
               WILHEIM
             </Typography>
             <Box textAlign="center">
-              <ItemContainer scale="1.50">
+              <ItemContainer
+                scale="1.50"
+                href="https://www.facebook.com/cafewilheim"
+              >
                 <FacebookIcon sx={{ color: "white", mr: 1 }} />
               </ItemContainer>
-              <ItemContainer scale="1.50">
+              <ItemContainer
+                scale="1.50"
+                href="https://www.instagram.com/wilheim.cafe.bar/"
+              >
                 <InstagramIcon sx={{ color: "white" }} />
               </ItemContainer>
             </Box>
