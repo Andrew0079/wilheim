@@ -4,7 +4,9 @@ import { Typography, Container, Button } from "@mui/material";
 import { Box } from "@mui/system";
 
 interface HomeProps {
-  onNavigate: (page: any) => void;
+  title: string;
+  buttonText: string;
+  onNavigate: (page: string) => void;
 }
 
 const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
@@ -39,7 +41,6 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay Box */}
       <Box
         sx={{
           position: "absolute",
@@ -80,7 +81,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
               },
             }}
           >
-            {"You Bring the Laughter \n We Serve the Love"}
+            {props.title}
           </Typography>
           <Box
             sx={{
@@ -96,10 +97,12 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
                 backgroundColor: "white",
                 borderRadius: 5,
               }}
-              onClick={() => props.onNavigate("Inquire")}
+              onClick={() => {
+                props.onNavigate("Inquire");
+              }}
             >
               <Typography color="#051923" fontWeight="600">
-                INQUIRE NOW
+                {props.buttonText}
               </Typography>
             </Button>
           </Box>

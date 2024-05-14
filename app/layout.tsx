@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import theme from "@/theme";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 
 const newTheme = createTheme({
   ...theme,
@@ -17,10 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ThemeProvider theme={newTheme}>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </ThemeProvider>
+    <html lang="en">
+      <AppRouterCacheProvider>
+        <ThemeProvider theme={newTheme}>
+          <body suppressHydrationWarning={true}>{children}</body>
+        </ThemeProvider>
+      </AppRouterCacheProvider>
+    </html>
   );
 }

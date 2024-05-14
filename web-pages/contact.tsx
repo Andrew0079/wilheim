@@ -4,9 +4,12 @@ import { Card, Typography, Link } from "@mui/material";
 import { Box } from "@mui/system";
 import { SectionHeader } from "@/components";
 
-interface ContactProps {}
+interface ContactProps {
+  title: string;
+}
 
 const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
+  const title = props.title;
   const mapsUrl =
     "https://www.google.com/maps/place/Cafe+Wilheim/@48.2143352,16.3724985,16.37z/data=!4m6!3m5!1s0x476d07e53b871151:0x1d831e66aa788c98!8m2!3d48.2144234!4d16.3730642!16s%2Fg%2F11fppmj7fv?entry=ttu";
   return (
@@ -20,7 +23,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
         width: "100%",
       }}
     >
-      <SectionHeader title="Contact" />
+      <SectionHeader title={title} />
       <Box
         sx={{
           display: "flex",

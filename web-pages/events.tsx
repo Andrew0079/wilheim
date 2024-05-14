@@ -11,18 +11,27 @@ import {
 } from "@mui/material";
 import { SectionHeader, StickerContainer } from "@/components";
 
-interface EventsProps {}
+interface EventsProps {
+  onHandleScrollToInquire: () => void;
+  events: {
+    title: string;
+    items: { title: string; text: string }[];
+  };
+}
 
-function GridDisplay({
-  list,
-  onClick,
-}: {
-  list: any[];
-  onClick?: (index: number) => void;
-}) {
+const imageMapper = {
+  0: "images/birthday.jpeg",
+  1: "images/company-party.jpg",
+  2: "images/christmas-party.jpg",
+  3: "images/bachelor.jpg",
+  4: "images/meeting.jpg",
+  5: "images/live.jpg",
+};
+
+function GridDisplay({ list, onClick }: { list: any[]; onClick?: () => void }) {
   return (
     <Grid container spacing={6} justifyContent="center" padding={4}>
-      {list.map(({ title, text, image }, index) => (
+      {list.map(({ title, text }, index) => (
         <Grid item xs={12} sm={6} md={4} key={`services-${index}`}>
           <Card
             sx={{
@@ -39,11 +48,11 @@ function GridDisplay({
             <CardMedia
               component="img"
               height="160"
-              image={image}
+              image={(imageMapper as any)[index]}
               alt={title}
               onClick={() => {
                 if (onClick) {
-                  onClick(index);
+                  onClick();
                 }
               }}
             />
@@ -65,39 +74,7 @@ function GridDisplay({
 }
 
 const Events = forwardRef<HTMLDivElement, EventsProps>((props, ref) => {
-  const services = [
-    {
-      title: "Birthday",
-      text: "The event location in Vienna for birthday parties",
-      image: "/images/birthday.jpeg",
-    },
-    {
-      title: "Company Party",
-      text: "The event location in Vienna for company celebrations",
-      image: "/images/company-party.jpg",
-    },
-    {
-      title: "Christmas Party",
-      text: "The event location in Vienna for Christmas parties",
-      image: "/images/christmas-party.jpg",
-    },
-    {
-      title: "Bachelor Party",
-      text: "The event location in Vienna for bachelor parties",
-      image: "/images/bachelor.jpg",
-    },
-    {
-      title: "Meeting",
-      text: "The event location in Vienna for meetings",
-      image: "/images/meeting.jpg",
-    },
-    {
-      title: "Live Performance",
-      text: "The event location in Vienna for concerts",
-      image: "/images/live.jpg",
-    },
-  ];
-
+  const { title, items } = props.events;
   return (
     <Box
       ref={ref}
@@ -108,12 +85,13 @@ const Events = forwardRef<HTMLDivElement, EventsProps>((props, ref) => {
         alignItems: "center",
       }}
     >
-      <SectionHeader title="Events" />
-      <StickerContainer
-      // stickerType="coffee.jpeg"
-      >
+      <SectionHeader title={title} />
+      <StickerContainer>
         <Container>
-          <GridDisplay list={services} />
+          <GridDisplay
+            list={items}
+            onClick={() => props.onHandleScrollToInquire()}
+          />
         </Container>
       </StickerContainer>
     </Box>

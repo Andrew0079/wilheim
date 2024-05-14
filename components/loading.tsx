@@ -30,7 +30,7 @@ function Loading() {
         <Lottie
           animationData={LoadingLottie}
           loop={true}
-          style={{ height: 500, width: 500 }}
+          style={{ height: 400, width: 400 }}
         />
       </Box>
     </Box>

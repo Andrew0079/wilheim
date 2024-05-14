@@ -9,15 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
 import Image from "next/image";
-
-const pages = [
-  "Home",
-  "Events",
-  "Our Service",
-  "Gallery",
-  "Inquire",
-  "Contact",
-];
+import { LANGUAGE } from "@/uitls/utils";
 
 function NavButton({
   label,
@@ -51,13 +43,15 @@ function NavButton({
 function Navigation({
   isAtTop,
   language,
+  navigationItems,
   onNavigate,
   onSetLanguage,
 }: {
   isAtTop: boolean;
   language: string;
-  onNavigate?: (page: any) => void;
-  onSetLanguage: (language: string) => void;
+  navigationItems: string[];
+  onNavigate?: (page: string) => void;
+  onSetLanguage: (language: "EN" | "DE") => void;
 }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -121,7 +115,7 @@ function Navigation({
                 justifyContent: "center",
               }}
             >
-              {pages.map((page) => (
+              {navigationItems.map((page: string) => (
                 <Box style={{ marginRight: 5 }} key={page}>
                   <NavButton
                     label={page}
@@ -154,18 +148,18 @@ function Navigation({
                 onClick={() => (window.location.href = "tel:+436606803630")}
               />
               <NavButton
-                label="EN"
+                label={LANGUAGE.EN}
                 onClick={() => {
-                  onSetLanguage("ENG");
+                  onSetLanguage(LANGUAGE.EN as "EN");
                 }}
-                isLanguageSelected={language === "ENG"}
+                isLanguageSelected={language === LANGUAGE.EN}
               />
               <NavButton
-                label="GE"
+                label={LANGUAGE.DE}
                 onClick={() => {
-                  onSetLanguage("GER");
+                  onSetLanguage(LANGUAGE.DE as "DE");
                 }}
-                isLanguageSelected={language === "GER"}
+                isLanguageSelected={language === LANGUAGE.DE}
               />
             </Box>
           </Box>
@@ -195,7 +189,7 @@ function Navigation({
             onClose={handleCloseNavMenu}
             sx={{ display: { xs: "block", md: "block" } }}
           >
-            {pages.map((page) => (
+            {navigationItems.map((page: string) => (
               <MenuItem
                 key={page}
                 onClick={() => {
@@ -206,6 +200,28 @@ function Navigation({
                 <Typography textAlign="center">{page}</Typography>
               </MenuItem>
             ))}
+            <MenuItem
+              key="phone-number-key"
+              onClick={() => (window.location.href = "tel:+436606803630")}
+            >
+              <Typography textAlign="center">+43 660 680 3630</Typography>
+            </MenuItem>
+            <MenuItem
+              key="english"
+              onClick={() => {
+                onSetLanguage(LANGUAGE.EN as "EN");
+              }}
+            >
+              <Typography textAlign="center">{LANGUAGE.EN}</Typography>
+            </MenuItem>
+            <MenuItem
+              key="german"
+              onClick={() => {
+                onSetLanguage(LANGUAGE.DE as "DE");
+              }}
+            >
+              <Typography textAlign="center">{LANGUAGE.DE}</Typography>
+            </MenuItem>
           </Menu>
         </Toolbar>
       </Box>
