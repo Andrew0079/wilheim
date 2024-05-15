@@ -24,7 +24,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
       }}
     >
       <Image
-        src="/images/wilheim/image24.jpeg" // Replace with your background image path
+        src="/images/bg.jpeg" // Replace with your background image path
         alt="Background"
         layout="fill"
         objectFit="cover"
@@ -34,7 +34,6 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           top: 0,
           left: 0,
           zIndex: -1,
-          boxShadow: "inset 0px 0px 10px rgba(0, 0, 0, 0.5)",
         }}
       />
       <Box
@@ -44,7 +43,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.4)",
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
           zIndex: 0,
         }}
       ></Box>

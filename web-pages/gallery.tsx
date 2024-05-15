@@ -100,7 +100,7 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image12.png" },
     { image: "/images/wilheim/image13.jpeg" },
     { image: "/images/wilheim/image14.jpeg" },
-    { image: "/images/wilheim/image15.jpg" },
+    { image: "/images/wilheim/image15.JPG" },
     { image: "/images/wilheim/image16.jpg" },
     { image: "/images/wilheim/image17.jpg" },
     { image: "/images/wilheim/image18.jpg" },
