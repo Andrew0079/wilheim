@@ -15,7 +15,10 @@ import { SectionHeader, StickerContainer } from "@/components";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
-interface GalleryProps {}
+interface GalleryProps {
+  title: string;
+  isXs: boolean;
+}
 
 function StandardImageList({
   list,
@@ -87,10 +90,8 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image2.jpeg" },
     { image: "/images/wilheim/image3.jpeg" },
     { image: "/images/wilheim/image4.jpeg" },
-    { image: "/images/birthday.jpeg" },
-    { image: "/images/company-party.jpg" },
-    { image: "/images/christmas-party.jpg" },
-    { image: "/images/bachelor.jpg" },
+    { image: "/images/wilheim/image5.png" },
+    { image: "/images/wilheim/image6.png" },
     { image: "/images/wilheim/image7.png" },
     { image: "/images/wilheim/image8.png" },
     { image: "/images/wilheim/image9.png" },
@@ -99,6 +100,16 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/image12.png" },
     { image: "/images/wilheim/image13.jpeg" },
     { image: "/images/wilheim/image14.jpeg" },
+    { image: "/images/wilheim/image15.jpg" },
+    { image: "/images/wilheim/image16.jpg" },
+    { image: "/images/wilheim/image17.jpg" },
+    { image: "/images/wilheim/image18.jpg" },
+    { image: "/images/wilheim/image19.jpg" },
+    { image: "/images/wilheim/image20.jpg" },
+    { image: "/images/wilheim/image21.jpg" },
+    { image: "/images/wilheim/image22.jpeg" },
+    { image: "/images/wilheim/image23.jpeg" },
+    { image: "/images/wilheim/image24.jpeg" },
   ];
 
   return (
@@ -111,11 +122,9 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
         alignItems: "center",
       }}
     >
-      <SectionHeader title="Gallery" />
-      <StickerContainer
-      // stickerType="sticker0.jpg"
-      >
-        <Container>
+      <SectionHeader title={props.title} isXs={props.isXs} />
+      <StickerContainer>
+        <Container style={{ minWidth: "90%" }}>
           <StandardImageList list={imageUrls} onHandleClick={handleOpen} />
         </Container>
       </StickerContainer>

@@ -17,7 +17,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import emailjs from "emailjs-com";
 
 interface InquireProps {
+  isEnglish: boolean;
   inquires: { title: string; text: string; subText: string };
+  isXs: boolean;
 }
 
 interface FormField {
@@ -43,7 +45,7 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
   }>(defaultForm);
   const [isFormValid, setIsFormValid] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const isXs = props.isXs;
   const { title, text, subText } = props.inquires;
 
   const handleForm = (key: string, value: string, required: boolean) => {
@@ -102,7 +104,7 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
         alignItems: "center",
       }}
     >
-      <SectionHeader title={title} />
+      <SectionHeader title={title} isXs={isXs} />
       <Container>
         <Grid container spacing={6}>
           <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
@@ -121,7 +123,11 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
                   gap: 4,
                 }}
               >
-                <Typography fontWeight="bold" fontSize={28} textAlign="center">
+                <Typography
+                  fontWeight="bold"
+                  fontSize={isXs ? 14 : 28}
+                  textAlign="center"
+                >
                   {text}
                 </Typography>
                 <Typography textAlign="center">{subText}</Typography>
@@ -235,7 +241,9 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
                     borderRadius: 5,
                   }}
                 >
-                  <Typography color="white">Send Request</Typography>
+                  <Typography color="white">
+                    {props.isEnglish ? "Send Request" : "Anfrage senden"}
+                  </Typography>
                 </Button>
               )}
             </Box>

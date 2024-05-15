@@ -4,6 +4,16 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import StarIcon from "@mui/icons-material/Star";
 
+interface FooterProps {
+  eventRef: MutableRefObject<any>;
+  events: {
+    title: string;
+    items: { title: string; text: string }[];
+  };
+  isEnglish: boolean;
+  isXs: boolean;
+}
+
 function ItemContainer({
   children,
   scale,
@@ -40,17 +50,12 @@ function ItemContainer({
   );
 }
 
-function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
+function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
+  const { items } = events;
+
   const mapsUrl =
     "https://www.google.com/maps/place/Cafe+Wilheim/@48.2143352,16.3724985,16.37z/data=!4m6!3m5!1s0x476d07e53b871151:0x1d831e66aa788c98!8m2!3d48.2144234!4d16.3730642!16s%2Fg%2F11fppmj7fv?entry=ttu";
-  const events = [
-    "Birthday",
-    "Company Party",
-    "Christmas Party",
-    "Bachelor Party",
-    "Meeting",
-    "Live performance",
-  ];
+
   return (
     <Box
       sx={{
@@ -59,15 +64,24 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
         backgroundColor: "#051923",
         color: "white",
       }}
+      alignItems="center"
+      justifyContent="center"
+      display="flex"
+      flexDirection="column"
     >
-      <Container maxWidth="lg">
+      <Container
+        style={{
+          width: "95%",
+          minWidth: "95%",
+        }}
+      >
         <Grid container justifyContent="space-between">
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={12} sm={12} md={4} lg={2}>
             <Typography
               variant="body2"
               textAlign="center"
               gutterBottom
-              fontSize={24}
+              fontSize={isXs ? 16 : 24}
             >
               WILHEIM
             </Typography>
@@ -86,17 +100,24 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
               </ItemContainer>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={isEnglish ? 3 : 4}
+            lg={isEnglish ? 2 : 3}
+          >
             <Typography
               variant="body2"
               textAlign="center"
               gutterBottom
-              fontSize={24}
+              fontSize={isXs ? 16 : 24}
+              noWrap
             >
-              EVENTS
+              {(isEnglish ? "Events" : "Veranstaltungen").toUpperCase()}
             </Typography>
             <Box display="flex" flexDirection="column" alignItems="center">
-              {events.map((event: string, index: number) => {
+              {items.map(({ title }: { title: string }, index: number) => {
                 const element =
                   eventRef?.current?.getBoundingClientRect().top +
                   window.scrollY;
@@ -116,22 +137,22 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
                       gutterBottom
                       style={{ cursor: "pointer" }}
                     >
-                      {event}
+                      {title}
                     </Typography>
                   </ItemContainer>
                 );
               })}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={12} sm={12} md={4} lg={2}>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Typography
                 variant="body2"
                 textAlign="center"
                 gutterBottom
-                fontSize={24}
+                fontSize={isXs ? 16 : 24}
               >
-                CONTACT
+                {(isEnglish ? "CONTACT" : "Kontakt").toUpperCase()}
               </Typography>
               <ItemContainer href="mailto:info@wilheim.at">
                 <Typography variant="body2" textAlign="center" gutterBottom>
@@ -145,15 +166,15 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
               </ItemContainer>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={12} sm={12} md={4} lg={2}>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Typography
                 variant="body2"
                 textAlign="center"
                 gutterBottom
-                fontSize={24}
+                fontSize={isXs ? 16 : 24}
               >
-                LOCATION
+                {(isEnglish ? "LOCATION" : "Standort").toUpperCase()}
               </Typography>
               <ItemContainer href={mapsUrl}>
                 <Typography variant="body2" textAlign="center" gutterBottom>
@@ -163,14 +184,14 @@ function Footer({ eventRef }: { eventRef: MutableRefObject<any> }) {
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={12} sm={12} md={4} lg={2}>
             <Typography
               variant="body2"
               textAlign="center"
               gutterBottom
-              fontSize={24}
+              fontSize={isXs ? 16 : 24}
             >
-              REVIEWS
+              {(isEnglish ? " REVIEWS" : "BEWERTUNGEN").toUpperCase()}
             </Typography>
             <Box textAlign="center" sx={{ mt: 2 }}>
               <StarIcon sx={{ color: "yellow", mr: 0.5 }} />

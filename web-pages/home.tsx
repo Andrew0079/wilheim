@@ -2,6 +2,7 @@
 import React, { forwardRef } from "react";
 import { Typography, Container, Button } from "@mui/material";
 import { Box } from "@mui/system";
+import Image from "next/image";
 
 interface HomeProps {
   title: string;
@@ -22,7 +23,51 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         overflow: "hidden",
       }}
     >
-      <video
+      <Image
+        src="/images/wilheim/image24.jpeg" // Replace with your background image path
+        alt="Background"
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: -1,
+          boxShadow: "inset 0px 0px 10px rgba(0, 0, 0, 0.5)",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.4)",
+          zIndex: 0,
+        }}
+      ></Box>
+      {/* <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: -1,
+          boxShadow: "inset 0px 0px 10px rgba(0, 0, 0, 0.5)", // Tiny bit of shadow
+        }}
+      >
+        <Image
+           src="/images/wilheim/image24.jpeg" // Replace with your background image path
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+        />
+      </Box> */}
+      {/* <video
         autoPlay
         loop
         muted
@@ -39,7 +84,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
       >
         <source src="/assets/coffee.mp4" type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video> */}
 
       <Box
         sx={{
@@ -50,7 +95,6 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           zIndex: 0,
         }}
       ></Box>
-
       <Box
         sx={{
           position: "relative",
@@ -67,7 +111,6 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         <Container>
           <Typography
             color="white"
-            variant="h2"
             textAlign="center"
             fontWeight={300}
             sx={{

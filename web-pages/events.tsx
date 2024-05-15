@@ -17,6 +17,7 @@ interface EventsProps {
     title: string;
     items: { title: string; text: string }[];
   };
+  isXs: boolean;
 }
 
 const imageMapper = {
@@ -28,7 +29,15 @@ const imageMapper = {
   5: "images/live.jpg",
 };
 
-function GridDisplay({ list, onClick }: { list: any[]; onClick?: () => void }) {
+function GridDisplay({
+  list,
+  onClick,
+  isXs,
+}: {
+  list: any[];
+  onClick?: () => void;
+  isXs: boolean;
+}) {
   return (
     <Grid container spacing={6} justifyContent="center" padding={4}>
       {list.map(({ title, text }, index) => (
@@ -58,10 +67,26 @@ function GridDisplay({ list, onClick }: { list: any[]; onClick?: () => void }) {
             />
             {title && text && (
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  component="div"
+                  sx={{
+                    whiteSpace: "pre-line",
+                    typography: {
+                      xs: "h6",
+                      sm: "h6",
+                      md: "h6",
+                      lg: "h5",
+                      xl: "h5",
+                    },
+                  }}
+                >
                   {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant={isXs ? "subtitle2" : "subtitle1"}
+                  color="text.secondary"
+                >
                   {text}
                 </Typography>
               </CardContent>
@@ -85,12 +110,13 @@ const Events = forwardRef<HTMLDivElement, EventsProps>((props, ref) => {
         alignItems: "center",
       }}
     >
-      <SectionHeader title={title} />
+      <SectionHeader title={title} isXs={props.isXs} />
       <StickerContainer>
         <Container>
           <GridDisplay
             list={items}
             onClick={() => props.onHandleScrollToInquire()}
+            isXs={props.isXs}
           />
         </Container>
       </StickerContainer>

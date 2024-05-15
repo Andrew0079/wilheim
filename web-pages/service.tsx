@@ -5,6 +5,7 @@ import { Box, Grid, Typography, Container, Divider } from "@mui/material";
 import { SectionHeader } from "@/components";
 
 interface ServiceProps {
+  isXs: boolean;
   services: {
     title: string;
     text: string;
@@ -18,6 +19,7 @@ interface ServiceProps {
 const Service = forwardRef<HTMLDivElement, ServiceProps>((props, ref) => {
   const { title, text, services } = props.services;
 
+  const isXs = props.isXs;
   return (
     <Box
       ref={ref}
@@ -29,8 +31,8 @@ const Service = forwardRef<HTMLDivElement, ServiceProps>((props, ref) => {
       }}
     >
       <Container>
-        <SectionHeader title={title} />
-        <Typography fontSize={18} textAlign="center">
+        <SectionHeader title={title} isXs={isXs} />
+        <Typography fontSize={isXs ? 14 : 18} textAlign="center">
           {text}
         </Typography>
         <Divider
@@ -44,11 +46,28 @@ const Service = forwardRef<HTMLDivElement, ServiceProps>((props, ref) => {
         />
         <Grid container spacing={6}>
           {services.map((item, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <Typography variant="h5" component="h2">
+            <Grid
+              item
+              xs={24}
+              sm={24}
+              md={24}
+              lg={4}
+              key={index}
+              alignItems="center"
+            >
+              <Typography
+                variant={isXs ? "h6" : "h5"}
+                component="h2"
+                textAlign="center"
+              >
                 ✔ {item.title}
               </Typography>
-              <Typography variant="body2">{item.text}</Typography>
+              <Typography
+                variant={isXs ? "subtitle2" : "body2"}
+                textAlign="center"
+              >
+                {item.text}
+              </Typography>
             </Grid>
           ))}
         </Grid>

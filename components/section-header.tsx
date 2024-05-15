@@ -1,11 +1,17 @@
 import React from "react";
 import { Container, Divider, Typography } from "@mui/material";
 
-function SectionHeader({ title }: { title: string }) {
+function SectionHeader({ title, isXs }: { title: string; isXs: boolean }) {
   return (
     <Container>
       <Divider style={{ paddingBottom: 40 }}>
-        <Typography variant="h3">{title}</Typography>
+        <Typography
+          textAlign="center"
+          variant={isXs ? "h5" : "h3"}
+          noWrap={true}
+        >
+          {title}
+        </Typography>
       </Divider>
     </Container>
   );

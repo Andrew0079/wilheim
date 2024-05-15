@@ -5,6 +5,8 @@ import { Home, Gallery, Service, Events, Contact, Inquire } from "@/web-pages";
 import { Navigation, Footer, Loading } from "../components";
 import { LANGUAGE } from "@/uitls/utils";
 import { getLocalization } from "../internationalization/localization";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Main() {
   const [language, setLanguage] = useState<"EN" | "DE">(LANGUAGE.DE);
@@ -15,8 +17,11 @@ function Main() {
   const contactRef = useRef<any>(null);
   const inquireRef = useRef<any>(null);
 
-  const localization = getLocalization(language);
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only("xs"));
 
+  const localization = getLocalization(language);
+  const isEnglish = LANGUAGE.EN === language;
   const [isAtTop, setIsAtTop] = useState(true);
 
   const handleScroll = () => {
@@ -128,24 +133,44 @@ function Main() {
                   ref={eventsRef}
                   events={localization.events}
                   onHandleScrollToInquire={handleScrollToInquire}
+                  isXs={isXs}
                 />
               </Grid>
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-                <Service ref={ourServicesRef} services={localization.service} />
+                <Service
+                  ref={ourServicesRef}
+                  services={localization.service}
+                  isXs={isXs}
+                />
               </Grid>
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-                <Gallery ref={galleryRef} />
+                <Gallery
+                  ref={galleryRef}
+                  title={isEnglish ? "Gallery" : "Galerie"}
+                  isXs={isXs}
+                />
               </Grid>
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-                <Inquire ref={inquireRef} inquires={localization.inquire} />
+                <Inquire
+                  ref={inquireRef}
+                  inquires={localization.inquire}
+                  isEnglish={isEnglish}
+                  isXs={isXs}
+                />
               </Grid>
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
                 <Contact
                   ref={contactRef}
-                  title={LANGUAGE.EN === language ? "Contact" : "Kontakt"}
+                  title={isEnglish ? "Contact" : "Kontakt"}
+                  isXs={isXs}
                 />
                 <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
-                  <Footer eventRef={eventsRef} />
+                  <Footer
+                    eventRef={eventsRef}
+                    events={localization.events}
+                    isEnglish={isEnglish}
+                    isXs={isXs}
+                  />
                 </Grid>
               </Grid>
             </Grid>
