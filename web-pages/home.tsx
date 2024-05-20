@@ -23,7 +23,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
         overflow: "hidden",
       }}
     >
-      <Image
+      {/* <Image
         src="/images/bg.jpeg" // Replace with your background image path
         alt="Background"
         layout="fill"
@@ -46,7 +46,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           backgroundColor: "rgba(0, 0, 0, 0.3)",
           zIndex: 0,
         }}
-      ></Box>
+      ></Box> */}
       {/* <Box
         sx={{
           position: "absolute",
@@ -66,7 +66,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
           quality={100}
         />
       </Box> */}
-      {/* <video
+      <video
         autoPlay
         loop
         muted
@@ -83,7 +83,7 @@ const Home = forwardRef<HTMLDivElement, HomeProps>((props, ref) => {
       >
         <source src="/assets/coffee.mp4" type="video/mp4" />
         Your browser does not support the video tag.
-      </video> */}
+      </video>
 
       <Box
         sx={{

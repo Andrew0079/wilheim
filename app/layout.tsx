@@ -8,7 +8,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 const newTheme = createTheme({
   ...theme,
   typography: {
-    fontFamily: "'Original Surfer', sans-serif",
+    fontFamily: "'Seasons', serif",
   },
 });
 
@@ -19,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head>
       <AppRouterCacheProvider>
         <ThemeProvider theme={newTheme}>
           <body suppressHydrationWarning={true}>{children}</body>
