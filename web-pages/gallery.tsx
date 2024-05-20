@@ -99,14 +99,14 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
     { image: "/images/wilheim/img11.jpg" },
     { image: "/images/wilheim/img12.jpg" },
     { image: "/images/wilheim/img13.jpg" },
-    { image: "/images/wilheim/img14.jpg" },
+    { image: "/images/wilheim/img14.jpeg" },
     { image: "/images/wilheim/img15.jpg" },
     { image: "/images/wilheim/img16.jpg" },
     { image: "/images/wilheim/img17.JPG" },
     { image: "/images/wilheim/img18.jpg" },
     { image: "/images/wilheim/img19.jpg" },
     { image: "/images/wilheim/img20.jpg" },
-    { image: "/images/wilheim/img21.jpg" },
+    { image: "/images/wilheim/img21.jpeg" },
     { image: "/images/wilheim/img22.PNG" },
   ];
 
