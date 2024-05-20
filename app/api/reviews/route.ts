@@ -1,6 +1,5 @@
-import { NextApiRequest } from "next";
 import { GoogleSearch } from "google-search-results-nodejs";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 const apiKey = process.env.SERPAPI_API_KEY as string;
 const search = new GoogleSearch(apiKey);
@@ -59,7 +58,7 @@ const getJson = (params: SearchParams): Promise<SearchResults> => {
   });
 };
 
-export async function GET(_: NextApiRequest) {
+export async function GET(_: NextRequest) {
   try {
     const allReviews: AllReviews = {
       reviews: [],
