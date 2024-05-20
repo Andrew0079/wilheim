@@ -1,7 +1,7 @@
 import { GoogleSearch } from "google-search-results-nodejs";
 import { NextResponse, NextRequest } from "next/server";
 
-const apiKey = process.env.SERPAPI_API_KEY as string;
+const apiKey = process.env.SERPAPI_API_KEY as unknown as string;
 const search = new GoogleSearch(apiKey);
 const dataId = "0x476d07e53b871151:0x1d831e66aa788c98";
 
