@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, forwardRef } from "react";
 import {
   Box,
@@ -7,9 +8,12 @@ import {
   CardMedia,
   Card,
   Container,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { SectionHeader, StickerContainer } from "@/components";
 import ImageList from "@mui/material/ImageList";
@@ -65,6 +69,9 @@ function StandardImageList({
 const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleOpen = (index: number) => {
     setCurrentImage(index);
@@ -131,26 +138,42 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
         onClose={handleClose}
         maxWidth="lg"
         fullWidth
-        style={{ borderRadius: 20 }}
+        fullScreen={fullScreen}
+        PaperProps={{
+          style: {
+            backgroundColor: "black",
+            color: "white",
+            borderRadius: fullScreen ? 0 : 20,
+          },
+        }}
       >
         <Box
           sx={{
             position: "relative",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             backgroundColor: "black",
-            height: "auto",
-            width: "100%",
-            "&:before": {
-              content: '""',
-              display: "block",
-              paddingTop: "56.25%",
-            },
           }}
         >
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              top: 16,
+              left: 16,
+              color: "white",
+              zIndex: 2,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <IconButton
             onClick={handleBack}
             sx={{
               position: "absolute",
-              left: 8,
+              left: 16,
               top: "50%",
               transform: "translateY(-50%)",
               backgroundColor: "white",
@@ -165,11 +188,10 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
           </IconButton>
           <Box
             sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
+              position: "relative",
+              width: "100%",
+              height: "100%",
+              maxHeight: "80%",
             }}
           >
             <Image
@@ -183,10 +205,11 @@ const Gallery = forwardRef<HTMLDivElement, GalleryProps>((props, ref) => {
             onClick={handleNext}
             sx={{
               position: "absolute",
-              right: 8,
+              right: 16,
               top: "50%",
               transform: "translateY(-50%)",
               backgroundColor: "white",
+              zIndex: 2,
               "&:hover": {
                 backgroundColor: "white",
                 boxShadow: "none",

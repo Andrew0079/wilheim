@@ -1,15 +1,21 @@
 import { GoogleSearch } from "google-search-results-nodejs";
 import { NextResponse, NextRequest } from "next/server";
+import NodeCache from "node-cache"; // Import node-cache
 
-const apiKey = process.env.SERPAPI_API_KEY as unknown as string;
+const apiKey = process.env.NEXT_PUBLIC_SERPAPI_API_KEY as string;
 const search = new GoogleSearch(apiKey);
 const dataId = "0x476d07e53b871151:0x1d831e66aa788c98";
+const cache = new NodeCache();
+
+const CACHE_KEY = `reviews_${dataId}`;
+const CACHE_INTERVAL = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
 
 const params: SearchParams = {
   engine: "google_maps_reviews",
   hl: "en",
   data_id: dataId,
 };
+
 interface SearchParams {
   engine: string;
   hl: string;
@@ -44,6 +50,7 @@ interface SearchResults {
 interface AllReviews {
   placeInfo?: PlaceInfo;
   reviews: Review[];
+  lastUpdated: number; // Timestamp of the last update
 }
 
 const getJson = (params: SearchParams): Promise<SearchResults> => {
@@ -60,8 +67,19 @@ const getJson = (params: SearchParams): Promise<SearchResults> => {
 
 export async function GET(_: NextRequest) {
   try {
+    const cachedData = cache.get<AllReviews>(CACHE_KEY);
+
+    if (cachedData) {
+      const now = Date.now();
+      const cacheAge = now - cachedData.lastUpdated;
+      if (cacheAge < CACHE_INTERVAL) {
+        return NextResponse.json(cachedData);
+      }
+    }
+
     const allReviews: AllReviews = {
       reviews: [],
+      lastUpdated: Date.now(),
     };
 
     let hasNextPage = true;
@@ -92,6 +110,8 @@ export async function GET(_: NextRequest) {
         hasNextPage = false;
       }
     }
+
+    cache.set(CACHE_KEY, allReviews);
 
     return NextResponse.json(allReviews);
   } catch (error) {

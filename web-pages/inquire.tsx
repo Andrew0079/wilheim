@@ -10,6 +10,8 @@ import {
   Button,
   Container,
   CircularProgress,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -47,6 +49,15 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
   const [loading, setLoading] = useState(false);
   const isXs = props.isXs;
   const { title, text, subText } = props.inquires;
+  const [notification, setNotification] = useState<{
+    open: boolean;
+    success: boolean;
+    message: string;
+  }>({
+    open: false,
+    success: false,
+    message: "",
+  });
 
   const handleForm = (key: string, value: string, required: boolean) => {
     setForm({ ...form, [key]: { value, required } });
@@ -54,33 +65,58 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
 
   const handleSubmit = () => {
     setLoading(true);
-    const serviceID = "service_bxuf2nd";
-    const templateID = "template_euzvnxp";
-    const userID = "JTiGW0CSFcrZ-oym5";
 
-    const emailParams = {
-      to_name: "Wilheim",
-      firstName: form.firstName.value,
-      lastName: form.lastName.value,
-      company: form.company.value,
-      phoneNumber: form.phoneNumber.value,
-      emailTo: form.email.value,
-      numberOfPeople: form.numberOfPeople.value,
-      atTime: form.time.value,
-      date: form.date.value,
-      detail: form.detail.value,
-    };
+    try {
+      const serviceID = process.env
+        .NEXT_PUBLIC_EMAILJS_SERVICE_ID as unknown as string;
+      const templateID = process.env
+        .NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as unknown as string;
+      const userID = process.env
+        .NEXT_PUBLIC_EMAILJS_USER_ID as unknown as string;
 
-    emailjs.send(serviceID, templateID, emailParams, userID).then(
-      () => {
-        setLoading(false);
-        setForm(defaultForm);
-      },
-      () => {
-        setLoading(false);
-        setForm(defaultForm);
-      }
-    );
+      const emailParams = {
+        to_name: "Wilheim",
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        company: form.company.value,
+        phoneNumber: form.phoneNumber.value,
+        emailTo: form.email.value,
+        numberOfPeople: form.numberOfPeople.value,
+        atTime: form.time.value,
+        date: form.date.value,
+        detail: form.detail.value,
+      };
+
+      emailjs.send(serviceID, templateID, emailParams, userID).then(
+        () => {
+          setLoading(false);
+          setForm(defaultForm);
+          setNotification({
+            open: true,
+            success: true,
+            message: "Email sent successfully!",
+          });
+        },
+        () => {
+          setLoading(false);
+          setForm(defaultForm);
+          setNotification({
+            open: true,
+            success: false,
+            message:
+              "Failed to send email. Please try again or try to call us.",
+          });
+        }
+      );
+    } catch (error) {
+      setLoading(false);
+      setForm(defaultForm);
+      setNotification({
+        open: true,
+        success: false,
+        message: "Failed to send email. Please try again or try to call us.",
+      });
+    }
   };
 
   useEffect(() => {
@@ -93,6 +129,10 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
       setIsFormValid(false);
     }
   }, [isFormValid, form]);
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
+  };
 
   return (
     <Box
@@ -250,6 +290,19 @@ const Inquire = forwardRef<HTMLDivElement, InquireProps>((props, ref) => {
           </Grid>
         </Grid>
       </Container>
+      <Snackbar
+        open={notification.open}
+        autoHideDuration={6000}
+        onClose={handleCloseNotification}
+      >
+        <Alert
+          onClose={handleCloseNotification}
+          severity={notification.success ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {notification.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 });
