@@ -24,6 +24,7 @@ function HorizontalScroll() {
   const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [nextPageToken, setNextPageToken] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
 
   const scrollLeftButton = () => {
     if (scrollRef.current) {
@@ -74,7 +75,7 @@ function HorizontalScroll() {
 
   const fetchMoreReviews = async () => {
     try {
-      setLoading(true);
+      setLoadingMore(true);
       const response = await fetch(`/api/reviews`, {
         method: "POST",
         headers: {
@@ -95,7 +96,7 @@ function HorizontalScroll() {
     } catch (error) {
       console.error("Failed to fetch reviews:", error);
     } finally {
-      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
@@ -216,6 +217,19 @@ function HorizontalScroll() {
                   </Card>
                 );
               })}
+            {loadingMore && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  minHeight: 300,
+                }}
+              >
+                <CircularProgress style={{ height: 26, width: 26 }} />
+              </Box>
+            )}
           </Box>
           <IconButton onClick={scrollRightButton}>
             <ArrowForwardIosIcon />
