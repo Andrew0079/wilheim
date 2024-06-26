@@ -127,7 +127,7 @@ const enLocalization: LocalizationData = {
     title: "Contact",
     subTitle: {
       one: "Customers love our event location and confirm this with their reviews.",
-      two: "his is just a small selection of satisfied customers.",
+      two: "This is just a small selection of satisfied customers.",
     },
   },
 };
