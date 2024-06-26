@@ -1,8 +1,16 @@
 import React, { MutableRefObject } from "react";
-import { Box, Typography, Container, Grid, Divider } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Container,
+  Grid,
+  Divider,
+  useMediaQuery,
+} from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import StarIcon from "@mui/icons-material/Star";
+import { useTheme } from "@mui/material/styles";
 
 interface FooterProps {
   eventRef: MutableRefObject<any>;
@@ -51,6 +59,9 @@ function ItemContainer({
 }
 
 function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { items } = events;
 
   const mapsUrl =
@@ -76,7 +87,14 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
         }}
       >
         <Grid container justifyContent="space-between">
-          <Grid item xs={12} sm={12} md={4} lg={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            lg={2}
+            sx={{ paddingBottom: isSmallScreen ? 2 : 0 }}
+          >
             <Typography
               variant="body2"
               textAlign="center"
@@ -106,6 +124,7 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
             sm={12}
             md={isEnglish ? 3 : 4}
             lg={isEnglish ? 2 : 3}
+            sx={{ paddingBottom: isSmallScreen ? 2 : 0 }}
           >
             <Typography
               variant="body2"
@@ -144,7 +163,14 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
               })}
             </Box>
           </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            lg={2}
+            sx={{ paddingBottom: isSmallScreen ? 2 : 0 }}
+          >
             <Box display="flex" flexDirection="column" alignItems="center">
               <Typography
                 variant="body2"
@@ -166,7 +192,14 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
               </ItemContainer>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            lg={2}
+            sx={{ paddingBottom: isSmallScreen ? 2 : 0 }}
+          >
             <Box display="flex" flexDirection="column" alignItems="center">
               <Typography
                 variant="body2"
@@ -184,7 +217,14 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={12} md={4} lg={2}>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={4}
+            lg={2}
+            sx={{ paddingBottom: isSmallScreen ? 2 : 0 }}
+          >
             <Typography
               variant="body2"
               textAlign="center"
@@ -210,7 +250,6 @@ function Footer({ eventRef, events, isEnglish, isXs }: FooterProps) {
           marginBottom: 6,
         }}
       />
-
       <Typography variant="body1" textAlign="center">
         Copyrights AS © BB Production - {new Date().getFullYear()} All rights
         reserved.

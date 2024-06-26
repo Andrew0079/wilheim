@@ -176,7 +176,7 @@ const Contact = forwardRef<HTMLDivElement, ContactProps>((props, ref) => {
         sx={{
           paddingBottom: 5,
           paddingTop: 5,
-          width: width === 0 ? 320 : width, // Responsive width
+          width: width === 0 ? 340 : width, // Responsive width
           margin: "0 auto", // Centers the box in the parent container
           textAlign: "center", // Centers the text inside the box
         }}
