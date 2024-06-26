@@ -86,7 +86,6 @@ function HorizontalScroll() {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      console.log(data);
       const reviewsList = data?.reviews;
       setNextPageToken(data?.nextPageToken);
 
