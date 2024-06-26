@@ -31,8 +31,7 @@ const getJson = (params: SearchParams): Promise<any> => {
 
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url);
-    const nextPageToken: any = url.searchParams.get("next_page_token");
+    const nextPageToken: any = req.nextUrl.searchParams.get("next_page_token");
 
     const cacheKeyWithToken = `${CACHE_KEY}_${nextPageToken}`;
     let cacheData = cache.get<any>(cacheKeyWithToken);
