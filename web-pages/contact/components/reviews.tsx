@@ -75,13 +75,18 @@ function HorizontalScroll() {
   const fetchMoreReviews = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `/api/reviews?next_page_token=${nextPageToken}`
-      );
+      const response = await fetch(`/api/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ next_page_token: nextPageToken }),
+      });
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log(data);
       const reviewsList = data?.reviews;
       setNextPageToken(data?.nextPageToken);
 
@@ -99,7 +104,13 @@ function HorizontalScroll() {
     const fetchReviews = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/reviews");
+        const response = await fetch(`/api/reviews`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ next_page_token: null }),
+        });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -117,11 +128,8 @@ function HorizontalScroll() {
         setLoading(false);
       }
     };
-
-    if (reviews?.length === 0) {
-      fetchReviews();
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchReviews();
   }, []);
 
   return (

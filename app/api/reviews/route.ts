@@ -29,9 +29,9 @@ const getJson = (params: SearchParams): Promise<any> => {
   });
 };
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const nextPageToken: any = req.nextUrl.searchParams.get("next_page_token");
+    const { next_page_token: nextPageToken }: any = await req.json();
 
     const cacheKeyWithToken = `${CACHE_KEY}_${nextPageToken}`;
     let cacheData = cache.get<any>(cacheKeyWithToken);
