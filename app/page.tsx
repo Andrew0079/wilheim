@@ -161,8 +161,9 @@ function Main() {
               <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
                 <Contact
                   ref={contactRef}
-                  title={isEnglish ? "Contact" : "Kontakt"}
+                  contact={localization.contact}
                   isXs={isXs}
+                  isEnglish={isEnglish}
                 />
                 <Grid item xl={24} lg={24} md={24} sm={24} xs={24}>
                   <Footer

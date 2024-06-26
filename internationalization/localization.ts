@@ -27,6 +27,13 @@ interface LocalizationData {
     text: string;
     subText: string;
   };
+  contact: {
+    title: string;
+    subTitle: {
+      one: string;
+      two: string;
+    };
+  };
 }
 
 const enLocalization: LocalizationData = {
@@ -116,6 +123,13 @@ const enLocalization: LocalizationData = {
     text: "INQUIRE NOW FOR YOUR EVENT LOCATION IN VIENNA",
     subText: "✔ NO ROOM RENTAL ✔ NON-BINDING INQUIRY ✔ QUICK RESPONSE",
   },
+  contact: {
+    title: "Contact",
+    subTitle: {
+      one: "Customers love our event location and confirm this with their reviews.",
+      two: "his is just a small selection of satisfied customers.",
+    },
+  },
 };
 
 export const deLocalization: LocalizationData = {
@@ -204,6 +218,13 @@ export const deLocalization: LocalizationData = {
     title: "Anfragen",
     text: "JETZT ANFRAGEN FÜR IHREN VERANSTALTUNGSORT IN WIEN",
     subText: "✔ KEINE RAUMMIETE ✔ UNVERBINDLICHE ANFRAGE ✔ SCHNELLE ANTWORT",
+  },
+  contact: {
+    title: "Kontakt",
+    subTitle: {
+      one: "Unsere Veranstaltungsort wird von den Kunden geliebt und dies bestätigen sie mit ihren Bewertungen.",
+      two: "Dies ist nur eine kleine Auswahl zufriedener Kunden.",
+    },
   },
 };
 

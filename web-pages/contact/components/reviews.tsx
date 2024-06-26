@@ -13,6 +13,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import moment from "moment";
 import CircularProgress from "@mui/material/CircularProgress";
+import StarRating from "./start-rating";
 
 function HorizontalScroll() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -21,7 +22,8 @@ function HorizontalScroll() {
   const scrollLeft = useRef<number>(0);
 
   const [reviews, setReviews] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [nextPageToken, setNextPageToken] = useState<string | null>(null);
 
   const scrollLeftButton = () => {
     if (scrollRef.current) {
@@ -29,9 +31,18 @@ function HorizontalScroll() {
     }
   };
 
-  const scrollRightButton = () => {
+  const scrollRightButton = async () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      // Check if scrolled to the end
+      if (
+        scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
+        scrollRef.current.scrollWidth
+      ) {
+        if (nextPageToken) {
+          await fetchMoreReviews();
+        }
+      }
     }
   };
 
@@ -61,6 +72,29 @@ function HorizontalScroll() {
     }
   };
 
+  const fetchMoreReviews = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `/api/reviews?next_page_token=${nextPageToken}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const reviewsList = data?.reviews;
+      setNextPageToken(data?.nextPageToken);
+
+      if (reviewsList) {
+        setReviews((prevReviews) => [...prevReviews, ...reviewsList]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch reviews:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -72,6 +106,8 @@ function HorizontalScroll() {
         const data = await response.json();
 
         const reviewsList = data?.reviews;
+        setNextPageToken(data?.nextPageToken);
+
         if (reviewsList) {
           setReviews(reviewsList);
         }
@@ -85,7 +121,8 @@ function HorizontalScroll() {
     if (reviews?.length === 0) {
       fetchReviews();
     }
-  }, [reviews]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -95,7 +132,7 @@ function HorizontalScroll() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: 200,
+            height: 400,
             justifyContent: " center",
             alignItems: "center",
           }}
@@ -104,7 +141,7 @@ function HorizontalScroll() {
           <Typography color="black">Loading reviews...</Typography>
         </Box>
       )}
-      {reviews.length > 0 && (
+      {!loading && reviews.length > 0 && (
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <IconButton onClick={scrollLeftButton}>
             <ArrowBackIosIcon />
@@ -114,7 +151,7 @@ function HorizontalScroll() {
             sx={{
               display: "flex",
               overflowX: "auto",
-              height: 250,
+              height: 400,
               gap: 2,
               padding: 2,
               width: "100%",
@@ -136,17 +173,29 @@ function HorizontalScroll() {
                 const userName = review?.user?.name;
                 const userImage = review?.user?.thumbnail;
                 const reviewDate = review?.iso_date_of_last_edit;
+                const rating = review?.rating;
 
                 return (
                   <Card key={index} sx={{ minWidth: 300 }}>
                     <CardHeader
-                      avatar={<Avatar src={userImage} alt="image" />}
+                      avatar={
+                        <Avatar
+                          src={userImage}
+                          alt="image"
+                          sx={{ width: 52, height: 52 }}
+                        />
+                      }
                       title={userName}
-                      subheader={moment(reviewDate).format("DD/MM/YYYY HH:mm")}
+                      subheader={
+                        <>
+                          {moment(reviewDate).format("DD/MM/YYYY HH:mm")}
+                          <StarRating rating={rating} />
+                        </>
+                      }
                     />
                     <CardContent
                       sx={{
-                        maxHeight: 120,
+                        maxHeight: 180,
                         overflowY: "auto",
                         "&::-webkit-scrollbar": { display: "none" },
                         msOverflowStyle: "none",

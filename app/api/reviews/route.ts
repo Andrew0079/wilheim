@@ -5,55 +5,19 @@ import NodeCache from "node-cache"; // Import node-cache
 const apiKey = process.env.NEXT_PUBLIC_SERPAPI_API_KEY as string;
 const search = new GoogleSearch(apiKey);
 const dataId = "0x476d07e53b871151:0x1d831e66aa788c98";
-const cache = new NodeCache();
+const cache = new NodeCache({ stdTTL: 1296000 }); // 15 days TTL in seconds
 
 const CACHE_KEY = `reviews_${dataId}`;
-const CACHE_INTERVAL = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
-
-const params: SearchParams = {
-  engine: "google_maps_reviews",
-  hl: "en",
-  data_id: dataId,
-};
 
 interface SearchParams {
   engine: string;
   hl: string;
   data_id: string;
   next_page_token?: string;
+  num?: number;
 }
 
-interface Review {
-  author_name: string;
-  rating: number;
-  text: string;
-  time: number;
-  extracted_snippet?: {
-    original: string;
-  };
-}
-
-interface PlaceInfo {
-  place_id: string;
-  name: string;
-  address: string;
-}
-
-interface SearchResults {
-  place_info?: PlaceInfo;
-  reviews?: Review[];
-  serpapi_pagination?: {
-    next_page_token?: string;
-  };
-}
-
-interface AllReviews {
-  placeInfo?: PlaceInfo;
-  reviews: Review[];
-  lastUpdated: number; // Timestamp of the last update
-}
-
-const getJson = (params: SearchParams): Promise<SearchResults> => {
+const getJson = (params: SearchParams): Promise<any> => {
   return new Promise((resolve, reject) => {
     search.json(params, (data: any) => {
       if (data) {
@@ -65,56 +29,39 @@ const getJson = (params: SearchParams): Promise<SearchResults> => {
   });
 };
 
-export async function GET(_: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const cachedData = cache.get<AllReviews>(CACHE_KEY);
+    const url = new URL(req.url);
+    const nextPageToken: any = url.searchParams.get("next_page_token");
 
-    if (cachedData) {
-      const now = Date.now();
-      const cacheAge = now - cachedData.lastUpdated;
-      if (cacheAge < CACHE_INTERVAL) {
-        return NextResponse.json(cachedData);
-      }
-    }
+    const cacheKeyWithToken = `${CACHE_KEY}_${nextPageToken}`;
+    let cacheData = cache.get<any>(cacheKeyWithToken);
 
-    const allReviews: AllReviews = {
-      reviews: [],
-      lastUpdated: Date.now(),
-    };
-
-    let hasNextPage = true;
-    let nextPageToken: string | undefined = undefined;
-
-    while (hasNextPage) {
+    if (!cacheData) {
+      // If cacheData is not found, fetch new data from the API
       const searchParams: SearchParams = {
-        ...params,
+        engine: "google_maps_reviews",
+        hl: "en",
+        data_id: dataId,
         next_page_token: nextPageToken,
+        ...(nextPageToken ? { num: 20 } : {}),
       };
 
-      const json: SearchResults = await getJson(searchParams);
+      const apiResult = await getJson(searchParams);
 
-      if (json.place_info && !allReviews.placeInfo) {
-        allReviews.placeInfo = json.place_info;
-      }
-
-      if (json.reviews) {
-        const filteredReviews = json.reviews.filter(
-          (review) => review.extracted_snippet
-        );
-        allReviews.reviews.push(...filteredReviews);
-      }
-
-      if (json.serpapi_pagination?.next_page_token) {
-        nextPageToken = json.serpapi_pagination.next_page_token;
-      } else {
-        hasNextPage = false;
-      }
+      // Update the cache with new data
+      const updatedCacheData = {
+        placeInfo: apiResult.place_info ?? {},
+        reviews: apiResult.reviews || [],
+        nextPageToken: apiResult.serpapi_pagination?.next_page_token,
+      };
+      cache.set(cacheKeyWithToken, updatedCacheData);
+      cacheData = updatedCacheData;
     }
 
-    cache.set(CACHE_KEY, allReviews);
-
-    return NextResponse.json(allReviews);
+    return NextResponse.json(cacheData);
   } catch (error) {
+    console.error("Error fetching reviews: ", error);
     return NextResponse.json({ error: "Failed to fetch reviews" });
   }
 }
